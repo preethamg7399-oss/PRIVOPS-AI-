@@ -23,6 +23,70 @@ Under India's **Digital Personal Data Protection (DPDP) Act, 2023** and upcoming
 
 ## 2. System Architecture & 10-Step Lifecycle
 
+```mermaid
+flowchart TD
+    subgraph Enterprise_App ["🏢 Enterprise Environment"]
+        User["User / Enterprise Application"]
+        FinalResp["Restored Output (Safe Local Delivery)"]
+    end
+
+    subgraph Gateway_Boundary ["🛡️ PRIVOPS Protected Gateway Boundary (Zero Raw-PII Transmission)"]
+        direction TB
+        GW["PRIVOPS Gateway Interceptor"]
+        PV["1. Purpose Validation & Minimization Engine<br/><i>(DPDP Section 6 Enforcement)</i>"]
+        PII["2. Hybrid PII Detection Engine<br/><i>(Verhoeff Aadhaar, PAN, GSTIN, Phone, Address)</i>"]
+        Classify["3. Sensitive Data Classification"]
+        Tokenize["4. Smart Tokenization<br/><i>(&lt;PERSON_1&gt;, &lt;AADHAAR_1&gt;, &lt;PAN_1&gt;)</i>"]
+        
+        subgraph Vault_Layer ["🔐 Local Privacy Vault (AES-128 Fernet)"]
+            Vault[("Encrypted In-Memory Vault<br/>Token-to-PII Mappings")]
+        end
+        
+        LeakGuard{"5. Zero-LeakGuard<br/>Pre-Outbound Scan"}
+        BlockAction["🛑 Abort Outbound Request<br/><i>Trigger Security Incident</i>"]
+        Reinsert["7. Secure Local Reinsertion<br/><i>Decrypted Vault Restoration</i>"]
+        AuditLog[("SQLite Incident & Audit Memory<br/><i>Zero Raw PII Retained</i>")]
+    end
+
+    subgraph External_Cloud ["☁️ External AI Cloud (Public Network)"]
+        SanitizedReq["Sanitized Outbound Payload<br/><i>(Only Placeholders - 0.00% Raw PII)</i>"]
+        LLM["External LLM Provider<br/><i>(OpenAI / Gemini / Claude)</i>"]
+        AIResp["AI Response with Tokens<br/><i>(&lt;PERSON_1&gt;, &lt;PAN_1&gt;)</i>"]
+    end
+
+    %% Flow connections
+    User -->|Raw Text Prompt| GW
+    GW --> PV
+    PV -->|Allowed Purpose| PII
+    PV -.->|Blocked Violation| BlockAction
+    PII --> Classify
+    Classify --> Tokenize
+    Tokenize -->|Encrypted Mapping| Vault
+    Tokenize --> LeakGuard
+    
+    LeakGuard -->|❌ Raw PII Detected| BlockAction
+    BlockAction -->|Alert & Audit| AuditLog
+    
+    LeakGuard -->|✅ 0.00% Leakage Passed| SanitizedReq
+    SanitizedReq --> LLM
+    LLM --> AIResp
+    
+    AIResp --> Reinsert
+    Vault -.->|Local Decrypt Key| Reinsert
+    Reinsert --> FinalResp
+    Reinsert -->|Transaction Telemetry| AuditLog
+
+    %% Styling
+    style Enterprise_App fill:#1E293B,stroke:#38BDF8,stroke-width:2px,color:#F8FAFC
+    style Gateway_Boundary fill:#0F172A,stroke:#10B981,stroke-width:2px,color:#F8FAFC
+    style Vault_Layer fill:#1E1B4B,stroke:#818CF8,stroke-width:1.5px,color:#E0E7FF
+    style External_Cloud fill:#1C1917,stroke:#F59E0B,stroke-width:2px,color:#FEF3C7
+    style LeakGuard fill:#047857,stroke:#34D399,stroke-width:2px,color:#FFFFFF
+    style BlockAction fill:#991B1B,stroke:#F87171,stroke-width:2px,color:#FFFFFF
+```
+
+### End-to-End Execution Flowchart
+
 ```
 USER / ENTERPRISE APPLICATION
            │
