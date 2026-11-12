@@ -9,8 +9,11 @@
       "args": [
         "run",
         "${workspaceFolder}/frontend/dashboard.py",
-        "--server.port=8501"
+        "--server.port=8502"
       ],
+      "env": {
+        "PYDEVD_DISABLE_SYS_MONITORING": "1"
+      },
       "noDebug": true,
       "console": "integratedTerminal"
     },
@@ -27,6 +30,9 @@
         "8000",
         "--reload"
       ],
+      "env": {
+        "PYDEVD_DISABLE_SYS_MONITORING": "1"
+      },
       "noDebug": true,
       "console": "integratedTerminal"
     },
@@ -35,6 +41,9 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/evaluate.py",
+      "env": {
+        "PYDEVD_DISABLE_SYS_MONITORING": "1"
+      },
       "noDebug": true,
       "console": "integratedTerminal"
     },
@@ -47,6 +56,9 @@
         "tests",
         "-v"
       ],
+      "env": {
+        "PYDEVD_DISABLE_SYS_MONITORING": "1"
+      },
       "noDebug": true,
       "console": "integratedTerminal"
     }

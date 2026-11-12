@@ -1,0 +1,27 @@
+{
+  "total_documents": 1,
+  "total_expected_entities": 3,
+  "total_detected_entities": 3,
+  "true_positives": 3,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "precision_percentage": 100.0,
+  "recall_percentage": 100.0,
+  "f1_score_percentage": 100.0,
+  "missed_detections_count": 0,
+  "false_detections_count": 0,
+  "missed_sample": [],
+  "false_sample": [],
+  "document_breakdown": [
+    {
+      "doc_id": "TEST-CUSTOM-001",
+      "doc_type": "Loan Form",
+      "language": "en",
+      "expected_count": 3,
+      "detected_count": 3,
+      "true_positives": 3,
+      "precision": 100.0,
+      "recall": 100.0
+    }
+  ]
+}

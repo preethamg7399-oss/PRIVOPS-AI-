@@ -3,8 +3,9 @@ PRIVOPS - FastAPI Application Entry Point
 Production-ready REST API for the Purpose-Aware Privacy Gateway.
 """
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 
@@ -15,6 +16,9 @@ from backend.purpose_engine import purpose_engine_instance
 from backend.incident_manager import incident_manager_instance
 from backend.audit import audit_logger_instance
 from backend.vault import vault_instance
+from backend.multilingual_engine import multilingual_engine_instance
+from backend.face_anonymizer import face_anonymizer_instance
+from backend.dataset_evaluator import dataset_evaluator_instance
 
 app = FastAPI(
     title="PRIVOPS Gateway API",
@@ -158,6 +162,142 @@ def update_policy(purpose: str, req: PolicyUpdateRequest):
 def get_vault_status():
     """Returns local privacy vault security telemetry."""
     return vault_instance.get_vault_stats()
+
+
+# =====================================================================
+# NEW PART 8 ENDPOINTS (Documents, Multilingual, Visual, Evaluation)
+# =====================================================================
+
+@app.post("/api/documents/upload")
+async def upload_document(
+    file: UploadFile = File(...)
+):
+    """Accepts document upload (PDF, PNG, JPG) and extracts text and language."""
+    content = await file.read()
+    raw_text, method, meta = multilingual_engine_instance.extract_document_text(content, file.filename)
+    lang_info = multilingual_engine_instance.identify_language(raw_text)
+    return {
+        "filename": file.filename,
+        "extraction_method": method,
+        "metadata": meta,
+        "language_info": lang_info,
+        "text_preview": raw_text[:500] if raw_text else "",
+        "char_count": len(raw_text)
+    }
+
+
+@app.post("/api/documents/process")
+async def process_document_endpoint(
+    file: UploadFile = File(...),
+    purpose: str = Form("loan_processing"),
+    client_id: str = Form("api_client"),
+    anonymize_faces: bool = Form(True)
+):
+    """Processes document through the complete PRIVOPS zero-exposure gateway."""
+    content = await file.read()
+    res = gateway_instance.process_document(
+        file_bytes=content,
+        filename=file.filename,
+        purpose=purpose,
+        client_id=client_id,
+        anonymize_faces=anonymize_faces
+    )
+    return res
+
+
+@app.post("/api/multilingual/detect")
+def multilingual_detect_endpoint(req: DetectOnlyRequest):
+    """Detects language and Indian regional PII entities across 8 languages."""
+    lang_info = multilingual_engine_instance.identify_language(req.text)
+    std_detected = detector_instance.detect_entities(req.text)
+    multi_detected = multilingual_engine_instance.detect_multilingual_pii(req.text)
+
+    merged = std_detected.copy()
+    spans = {(d["start"], d["end"]) for d in std_detected}
+    for md in multi_detected:
+        if (md["start"], md["end"]) not in spans:
+            merged.append(md)
+            spans.add((md["start"], md["end"]))
+
+    return {
+        "language_info": lang_info,
+        "total_detected": len(merged),
+        "entities": merged
+    }
+
+
+@app.post("/api/visual/detect-faces")
+async def detect_faces_endpoint(file: UploadFile = File(...)):
+    """Detects human faces in an image using OpenCV YuNet."""
+    import numpy as np
+    import cv2
+    content = await file.read()
+    np_arr = np.frombuffer(content, np.uint8)
+    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+    if img is None:
+        raise HTTPException(status_code=400, detail="Invalid image file format.")
+    faces = face_anonymizer_instance.detect_faces(img)
+    return {
+        "filename": file.filename,
+        "faces_detected": len(faces),
+        "face_coordinates": faces
+    }
+
+
+@app.post("/api/visual/anonymize")
+async def anonymize_faces_endpoint(
+    file: UploadFile = File(...),
+    method: str = Form("blur"),
+    blur_factor: int = Form(51),
+    pixel_size: int = Form(12)
+):
+    """Anonymizes faces in an image and returns protected image payload."""
+    content = await file.read()
+    res = gateway_instance.process_image_visual(
+        image_bytes=content,
+        filename=file.filename,
+        method=method,
+        blur_factor=blur_factor,
+        pixel_size=pixel_size
+    )
+    return {
+        "request_id": res["request_id"],
+        "filename": res["filename"],
+        "faces_detected": res["faces_detected"],
+        "face_coordinates": res["face_coordinates"],
+        "telemetry": res["telemetry"]
+    }
+
+
+@app.post("/api/evaluation/run")
+def run_evaluation_endpoint():
+    """Runs the 50-document ground-truth benchmark evaluation."""
+    report = dataset_evaluator_instance.run_evaluation()
+    return report
+
+
+@app.get("/api/evaluation/results")
+def get_evaluation_results_endpoint():
+    """Returns the latest evaluation report results."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    report_file = os.path.join(base_dir, "dataset", "latest_evaluation_report.json")
+    if os.path.exists(report_file):
+        import json
+        with open(report_file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return dataset_evaluator_instance.run_evaluation()
+
+
+@app.get("/api/audit/logs")
+def get_audit_logs_v1(limit: int = Query(50, ge=1, le=500)):
+    """Returns recent audit logs."""
+    return audit_logger_instance.get_recent_logs(limit=limit)
+
+
+@app.get("/api/analytics/overview")
+def get_analytics_overview():
+    """Returns system-wide analytics overview."""
+    return audit_logger_instance.get_metrics_summary()
 
 
 if __name__ == "__main__":

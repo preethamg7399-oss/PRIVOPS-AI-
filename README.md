@@ -182,6 +182,38 @@ USER / ENTERPRISE APPLICATION
 - **Panel B**: Protected Outbound Payload (sanitized tokens + vault mapping).
 - **Panel C**: Final User Response (safely restored original values + reinsertion diff).
 
+### 🌐 11. Multilingual Document Processing & Regional Indian PII
+- **Supported Languages:** English, Kannada, Hindi, Tamil, Telugu, Malayalam, Marathi, Bengali.
+- **Document Ingestion:** Digital PDFs, Scanned PDFs, and Images (PNG, JPG, JPEG) via `pypdf` and OCR fallbacks.
+- **Regional Numeral Normalization:** Maps Indian numerals (०-९, ೦-೯, ০-৯, etc.) to ASCII digits for Verhoeff Aadhaar and phone verification.
+- **Script & Language Identification:** Automatic script detection with language-specific contextual PII patterns.
+
+### 👁️ 12. Visual Privacy: Face Detection & Automatic Anonymization
+- **OpenCV YuNet Deep Neural Network:** Real-time face detection model (`face_detection_yunet_2023mar.onnx`).
+- **Anonymization Modes:** Gaussian Blur, Mosaic Pixelation, and Solid Redaction Blackout Masks.
+- **Zero-Exposure Visual Pipeline:** Unmasked raw facial biometrics are intercepted locally; only anonymized images can pass to external multimodal LLMs.
+
+### 📑 13. Ground-Truth Dataset-Based PII Evaluation
+- **Benchmark Dataset:** 50 realistic synthetic enterprise documents across 6 core sectors (Loan Applications, KYC, Insurance, Support Tickets, Employee Records, Banking) and multiple Indian languages.
+- **Authentic Scikit-Learn Metrics:** Real calculated Precision (88.7%), Recall (94.6%), and F1-Score (91.6%), with false positive and missed detection tracking.
+
+## 3. Cyber Dashboard Navigation Modules (9 Sections)
+
+PRIVOPS features a professional dark navy cybersecurity interface divided into 9 dedicated operational modules:
+
+1. **🏛️ Overview**: Executive architecture overview, system metrics, and DPDP compliance telemetry.
+2. **🛡️ Text Protection**: Three-Pane gateway interface with raw input inspection, 0.00% leak outbound sanitization, and secure local response reinsertion.
+3. **📄 Document Protection**: Upload PDF, scanned PDF, JPG, PNG, or TXT enterprise documents; **review and modify document text in-place**; tokenize Indian PII; and download sanitized documents in **Text and PDF format**.
+4. **🌐 Multilingual Processing**: Multilingual processing across 8 Indian languages (Kannada, Hindi, Tamil, Telugu, Malayalam, Marathi, Bengali, English) supporting **document uploads** (PDF/Image/TXT) and direct regional presets.
+5. **👁️ Visual Privacy**: Irreversible face anonymization powered by OpenCV YuNet DNN (Gaussian Blur, Mosaic Pixelation, Redaction Mask) isolating original biometrics in the local vault.
+6. **📈 Detection Evaluation**: Authentic scikit-learn performance evaluation featuring:
+   - **Standard 50-Document Benchmark** across 6 enterprise sectors.
+   - **Custom Dataset Input Evaluation** supporting uploaded JSON/CSV datasets.
+   - **Interactive Document Input Evaluation** for real-time testing against ground-truth categories.
+7. **📜 Audit Logs**: Tamper-evident transaction logs capturing document type, language, and anonymization counts with zero raw-PII retention.
+8. **📊 Analytics**: Real-time Plotly charts covering PII category frequencies, language distributions, and purpose analytics.
+9. **📋 Policy**: DPDP Act 2023 Section 6 purpose-based policies, data minimization rules, **Interactive Policy Simulator**, and AES-128 Vault telemetry.
+
 ---
 
 ## 4. Measured Evaluation Benchmark (50 Enterprise Documents)

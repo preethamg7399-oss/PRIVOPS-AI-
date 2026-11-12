@@ -1,0 +1,1816 @@
+[
+  {
+    "doc_id": "PRIVOPS-DOC-001",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 9168 6808 1455\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: UHHPK5494W\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501003648149\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9168 6808 1455"
+      },
+      {
+        "category": "PAN",
+        "value": "UHHPK5494W"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501003648149"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-002",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Rohan Gupta\nAadhaar Number: 8849 7687 6629\nPermanent Account Number (PAN): GOVGK2506K\nPrimary Mobile: +91-9838220941\nEmail: rohan.gupta@corp.in\nBank Account No: 109281611871\nResidential Address: Flat 227, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Rohan Gupta"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8849 7687 6629"
+      },
+      {
+        "category": "PAN",
+        "value": "GOVGK2506K"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9838220941"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109281611871"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "rohan.gupta@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 227, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: rohan.gupta@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 227, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-003",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Amit Nair\nAadhaar Number: 6425 1933 5867\nPermanent Account Number (PAN): PJANK8724P\nPrimary Mobile: +91-9882181970\nEmail: amit.nair@corp.in\nBank Account No: 109288690656\nResidential Address: Flat 318, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Amit Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6425 1933 5867"
+      },
+      {
+        "category": "PAN",
+        "value": "PJANK8724P"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9882181970"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109288690656"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "amit.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 318, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: amit.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 318, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-004",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 8086 5147 1140\nPAN: FGOPK5407N\nContact Mobile: 9849045678\nAccount: 501008807354\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8086 5147 1140"
+      },
+      {
+        "category": "PAN",
+        "value": "FGOPK5407N"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501008807354"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-005",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Deepak Patel\nAadhaar Number: 6454 4481 0853\nPermanent Account Number (PAN): XKGPK4618X\nPrimary Mobile: +91-9896491116\nEmail: deepak.patel@corp.in\nBank Account No: 109287082571\nResidential Address: Flat 705, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Deepak Patel"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6454 4481 0853"
+      },
+      {
+        "category": "PAN",
+        "value": "XKGPK4618X"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9896491116"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109287082571"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "deepak.patel@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 705, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: deepak.patel@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 705, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-006",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Rohan Sharma\nAadhaar Number: 4487 0118 2741\nPermanent Account Number (PAN): GOVSK4904T\nPrimary Mobile: +91-9843122010\nEmail: rohan.sharma@corp.in\nBank Account No: 109288482014\nResidential Address: Flat 440, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Rohan Sharma"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4487 0118 2741"
+      },
+      {
+        "category": "PAN",
+        "value": "GOVSK4904T"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9843122010"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109288482014"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "rohan.sharma@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 440, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: rohan.sharma@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 440, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-007",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 2218 5777 4388\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: MTXPK4279R\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501001614589\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "2218 5777 4388"
+      },
+      {
+        "category": "PAN",
+        "value": "MTXPK4279R"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501001614589"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-008",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Arjun Sharma\nAadhaar Number: 3297 4864 7936\nPermanent Account Number (PAN): LKGSK1996Z\nPrimary Mobile: +91-9826145122\nEmail: arjun.sharma@corp.in\nBank Account No: 109282264208\nResidential Address: Flat 164, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Arjun Sharma"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "3297 4864 7936"
+      },
+      {
+        "category": "PAN",
+        "value": "LKGSK1996Z"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9826145122"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109282264208"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "arjun.sharma@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 164, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: arjun.sharma@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 164, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-009",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Sneha Reddy\nAadhaar Number: 3110 5280 0146\nPermanent Account Number (PAN): VHRRK7288H\nPrimary Mobile: +91-9896975560\nEmail: sneha.reddy@corp.in\nBank Account No: 109281956410\nResidential Address: Flat 481, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sneha Reddy"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "3110 5280 0146"
+      },
+      {
+        "category": "PAN",
+        "value": "VHRRK7288H"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9896975560"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109281956410"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sneha.reddy@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 481, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sneha.reddy@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 481, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-010",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 9758 2166 9356\nPAN: KMWPK7126D\nContact Mobile: 9849045678\nAccount: 501009819291\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9758 2166 9356"
+      },
+      {
+        "category": "PAN",
+        "value": "KMWPK7126D"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501009819291"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-011",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Sneha Verma\nAadhaar Number: 8326 2083 8598\nPermanent Account Number (PAN): UVVVK4235U\nPrimary Mobile: +91-9828241841\nEmail: sneha.verma@corp.in\nBank Account No: 109289078608\nResidential Address: Flat 309, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sneha Verma"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8326 2083 8598"
+      },
+      {
+        "category": "PAN",
+        "value": "UVVVK4235U"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9828241841"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109289078608"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sneha.verma@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 309, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sneha.verma@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 309, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-012",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Priya Nair\nAadhaar Number: 3242 9791 8575\nPermanent Account Number (PAN): THLNK4491K\nPrimary Mobile: +91-9855726607\nEmail: priya.nair@corp.in\nBank Account No: 109283296345\nResidential Address: Flat 162, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Priya Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "3242 9791 8575"
+      },
+      {
+        "category": "PAN",
+        "value": "THLNK4491K"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9855726607"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109283296345"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "priya.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 162, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: priya.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 162, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-013",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 4741 6033 3359\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: UFSPK6889W\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501009059094\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4741 6033 3359"
+      },
+      {
+        "category": "PAN",
+        "value": "UFSPK6889W"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501009059094"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-014",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Sneha Kumar\nAadhaar Number: 8896 5071 6605\nPermanent Account Number (PAN): PBBKK8310N\nPrimary Mobile: +91-9829576091\nEmail: sneha.kumar@corp.in\nBank Account No: 109282451499\nResidential Address: Flat 305, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sneha Kumar"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8896 5071 6605"
+      },
+      {
+        "category": "PAN",
+        "value": "PBBKK8310N"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9829576091"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109282451499"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sneha.kumar@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 305, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sneha.kumar@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 305, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-015",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Vikram Nair\nAadhaar Number: 6683 9747 7341\nPermanent Account Number (PAN): FVDNK5207N\nPrimary Mobile: +91-9829275731\nEmail: vikram.nair@corp.in\nBank Account No: 109288559370\nResidential Address: Flat 208, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Vikram Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6683 9747 7341"
+      },
+      {
+        "category": "PAN",
+        "value": "FVDNK5207N"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9829275731"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109288559370"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "vikram.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 208, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: vikram.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 208, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-016",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 8193 0312 7620\nPAN: LOJPK0905H\nContact Mobile: 9849045678\nAccount: 501005680605\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8193 0312 7620"
+      },
+      {
+        "category": "PAN",
+        "value": "LOJPK0905H"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501005680605"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-017",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Amit Nair\nAadhaar Number: 3851 4461 6405\nPermanent Account Number (PAN): RQRNK5422W\nPrimary Mobile: +91-9811782413\nEmail: amit.nair@corp.in\nBank Account No: 109284980818\nResidential Address: Flat 629, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Amit Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "3851 4461 6405"
+      },
+      {
+        "category": "PAN",
+        "value": "RQRNK5422W"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9811782413"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109284980818"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "amit.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 629, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: amit.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 629, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-018",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Sunita Iyer\nAadhaar Number: 4935 7100 7042\nPermanent Account Number (PAN): ENIIK5992T\nPrimary Mobile: +91-9838502698\nEmail: sunita.iyer@corp.in\nBank Account No: 109285864306\nResidential Address: Flat 560, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sunita Iyer"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4935 7100 7042"
+      },
+      {
+        "category": "PAN",
+        "value": "ENIIK5992T"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9838502698"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109285864306"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sunita.iyer@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 560, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sunita.iyer@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 560, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-019",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 5718 4149 2164\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: HTDPK2929H\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501002405110\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "5718 4149 2164"
+      },
+      {
+        "category": "PAN",
+        "value": "HTDPK2929H"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501002405110"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-020",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Kavita Kumar\nAadhaar Number: 2084 1258 0548\nPermanent Account Number (PAN): CMXKK2725N\nPrimary Mobile: +91-9887958200\nEmail: kavita.kumar@corp.in\nBank Account No: 109282720886\nResidential Address: Flat 788, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Kavita Kumar"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "2084 1258 0548"
+      },
+      {
+        "category": "PAN",
+        "value": "CMXKK2725N"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9887958200"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109282720886"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "kavita.kumar@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 788, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: kavita.kumar@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 788, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-021",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Sunita Iyer\nAadhaar Number: 6990 2273 7813\nPermanent Account Number (PAN): WNYIK9171R\nPrimary Mobile: +91-9813531722\nEmail: sunita.iyer@corp.in\nBank Account No: 109288234516\nResidential Address: Flat 255, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sunita Iyer"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6990 2273 7813"
+      },
+      {
+        "category": "PAN",
+        "value": "WNYIK9171R"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9813531722"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109288234516"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sunita.iyer@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 255, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sunita.iyer@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 255, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-022",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 9362 5142 2336\nPAN: ATWPK9238T\nContact Mobile: 9849045678\nAccount: 501002866195\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9362 5142 2336"
+      },
+      {
+        "category": "PAN",
+        "value": "ATWPK9238T"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501002866195"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-023",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Amit Nair\nAadhaar Number: 7959 2814 3329\nPermanent Account Number (PAN): ZENNK3835J\nPrimary Mobile: +91-9811611582\nEmail: amit.nair@corp.in\nBank Account No: 109286124772\nResidential Address: Flat 151, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Amit Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7959 2814 3329"
+      },
+      {
+        "category": "PAN",
+        "value": "ZENNK3835J"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9811611582"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109286124772"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "amit.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 151, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: amit.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 151, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-024",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Arjun Deshmukh\nAadhaar Number: 7161 8886 4389\nPermanent Account Number (PAN): ANXDK9060T\nPrimary Mobile: +91-9822455079\nEmail: arjun.deshmukh@corp.in\nBank Account No: 109289054718\nResidential Address: Flat 141, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Arjun Deshmukh"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7161 8886 4389"
+      },
+      {
+        "category": "PAN",
+        "value": "ANXDK9060T"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9822455079"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109289054718"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "arjun.deshmukh@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 141, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: arjun.deshmukh@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 141, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-025",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 7221 3981 9333\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: YLKPK4788P\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501001740680\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7221 3981 9333"
+      },
+      {
+        "category": "PAN",
+        "value": "YLKPK4788P"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501001740680"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-026",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Priya Singh\nAadhaar Number: 6265 1459 2504\nPermanent Account Number (PAN): MXSSK6437B\nPrimary Mobile: +91-9825715060\nEmail: priya.singh@corp.in\nBank Account No: 109287984199\nResidential Address: Flat 318, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Priya Singh"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6265 1459 2504"
+      },
+      {
+        "category": "PAN",
+        "value": "MXSSK6437B"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9825715060"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109287984199"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "priya.singh@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 318, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: priya.singh@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 318, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-027",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Amit Iyer\nAadhaar Number: 9969 4870 7358\nPermanent Account Number (PAN): KQQIK0310D\nPrimary Mobile: +91-9877404844\nEmail: amit.iyer@corp.in\nBank Account No: 109285599168\nResidential Address: Flat 542, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Amit Iyer"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9969 4870 7358"
+      },
+      {
+        "category": "PAN",
+        "value": "KQQIK0310D"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9877404844"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109285599168"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "amit.iyer@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 542, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: amit.iyer@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 542, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-028",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 7536 3127 5534\nPAN: VXFPK0579A\nContact Mobile: 9849045678\nAccount: 501002741729\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7536 3127 5534"
+      },
+      {
+        "category": "PAN",
+        "value": "VXFPK0579A"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501002741729"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-029",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Rohan Iyer\nAadhaar Number: 7610 7146 3618\nPermanent Account Number (PAN): WITIK6408W\nPrimary Mobile: +91-9853368073\nEmail: rohan.iyer@corp.in\nBank Account No: 109284340562\nResidential Address: Flat 400, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Rohan Iyer"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7610 7146 3618"
+      },
+      {
+        "category": "PAN",
+        "value": "WITIK6408W"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9853368073"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109284340562"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "rohan.iyer@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 400, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: rohan.iyer@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 400, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-030",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Sneha Verma\nAadhaar Number: 8117 7300 3673\nPermanent Account Number (PAN): HRBVK4293W\nPrimary Mobile: +91-9880607361\nEmail: sneha.verma@corp.in\nBank Account No: 109282425704\nResidential Address: Flat 662, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sneha Verma"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8117 7300 3673"
+      },
+      {
+        "category": "PAN",
+        "value": "HRBVK4293W"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9880607361"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109282425704"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sneha.verma@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 662, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sneha.verma@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 662, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-031",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 8980 8979 2215\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: LUSPK7886Y\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501008013868\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8980 8979 2215"
+      },
+      {
+        "category": "PAN",
+        "value": "LUSPK7886Y"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501008013868"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-032",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Sunita Nair\nAadhaar Number: 4930 8896 5470\nPermanent Account Number (PAN): LNMNK5083H\nPrimary Mobile: +91-9891936037\nEmail: sunita.nair@corp.in\nBank Account No: 109285624295\nResidential Address: Flat 394, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sunita Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4930 8896 5470"
+      },
+      {
+        "category": "PAN",
+        "value": "LNMNK5083H"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9891936037"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109285624295"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sunita.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 394, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sunita.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 394, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-033",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Ananya Iyer\nAadhaar Number: 6029 0777 2826\nPermanent Account Number (PAN): OFAIK4372T\nPrimary Mobile: +91-9888328277\nEmail: ananya.iyer@corp.in\nBank Account No: 109287108002\nResidential Address: Flat 672, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Ananya Iyer"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6029 0777 2826"
+      },
+      {
+        "category": "PAN",
+        "value": "OFAIK4372T"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9888328277"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109287108002"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "ananya.iyer@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 672, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: ananya.iyer@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 672, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-034",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 7445 7975 1653\nPAN: QGUPK1815V\nContact Mobile: 9849045678\nAccount: 501003755163\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7445 7975 1653"
+      },
+      {
+        "category": "PAN",
+        "value": "QGUPK1815V"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501003755163"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-035",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Sneha Reddy\nAadhaar Number: 4527 2965 1671\nPermanent Account Number (PAN): PGSRK7269Q\nPrimary Mobile: +91-9849082040\nEmail: sneha.reddy@corp.in\nBank Account No: 109283123919\nResidential Address: Flat 793, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sneha Reddy"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4527 2965 1671"
+      },
+      {
+        "category": "PAN",
+        "value": "PGSRK7269Q"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9849082040"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109283123919"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sneha.reddy@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 793, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sneha.reddy@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 793, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-036",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Pooja Kumar\nAadhaar Number: 4300 7799 0951\nPermanent Account Number (PAN): TNFKK1215S\nPrimary Mobile: +91-9856717259\nEmail: pooja.kumar@corp.in\nBank Account No: 109283950365\nResidential Address: Flat 219, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Pooja Kumar"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4300 7799 0951"
+      },
+      {
+        "category": "PAN",
+        "value": "TNFKK1215S"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9856717259"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109283950365"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "pooja.kumar@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 219, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: pooja.kumar@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 219, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-037",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 8775 9058 7933\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: DZMPK7858V\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501002619582\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8775 9058 7933"
+      },
+      {
+        "category": "PAN",
+        "value": "DZMPK7858V"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501002619582"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-038",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Amit Nair\nAadhaar Number: 7192 7412 2182\nPermanent Account Number (PAN): KBPNK4230H\nPrimary Mobile: +91-9853170351\nEmail: amit.nair@corp.in\nBank Account No: 109289448916\nResidential Address: Flat 654, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Amit Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "7192 7412 2182"
+      },
+      {
+        "category": "PAN",
+        "value": "KBPNK4230H"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9853170351"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109289448916"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "amit.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 654, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: amit.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 654, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-039",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Rohan Nair\nAadhaar Number: 5895 9224 8406\nPermanent Account Number (PAN): AJWNK3586Q\nPrimary Mobile: +91-9848811146\nEmail: rohan.nair@corp.in\nBank Account No: 109281009908\nResidential Address: Flat 530, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Rohan Nair"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "5895 9224 8406"
+      },
+      {
+        "category": "PAN",
+        "value": "AJWNK3586Q"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9848811146"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109281009908"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "rohan.nair@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 530, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: rohan.nair@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 530, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-040",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 8284 9416 5667\nPAN: DZYPK6594G\nContact Mobile: 9849045678\nAccount: 501003146945\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8284 9416 5667"
+      },
+      {
+        "category": "PAN",
+        "value": "DZYPK6594G"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501003146945"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-041",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Kavita Singh\nAadhaar Number: 4716 5024 3202\nPermanent Account Number (PAN): IVCSK4009O\nPrimary Mobile: +91-9829443615\nEmail: kavita.singh@corp.in\nBank Account No: 109288460429\nResidential Address: Flat 759, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Kavita Singh"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "4716 5024 3202"
+      },
+      {
+        "category": "PAN",
+        "value": "IVCSK4009O"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9829443615"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109288460429"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "kavita.singh@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 759, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: kavita.singh@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 759, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-042",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Sunita Iyer\nAadhaar Number: 5300 0779 3977\nPermanent Account Number (PAN): UYWIK4856M\nPrimary Mobile: +91-9854591283\nEmail: sunita.iyer@corp.in\nBank Account No: 109281982486\nResidential Address: Flat 717, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Sunita Iyer"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "5300 0779 3977"
+      },
+      {
+        "category": "PAN",
+        "value": "UYWIK4856M"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9854591283"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109281982486"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "sunita.iyer@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 717, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: sunita.iyer@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 717, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-043",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 8805 8380 8457\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: MJBPK7846P\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501009957067\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8805 8380 8457"
+      },
+      {
+        "category": "PAN",
+        "value": "MJBPK7846P"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501009957067"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-044",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Ananya Singh\nAadhaar Number: 9238 2470 8565\nPermanent Account Number (PAN): TKKSK8654J\nPrimary Mobile: +91-9844421046\nEmail: ananya.singh@corp.in\nBank Account No: 109284519545\nResidential Address: Flat 746, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Ananya Singh"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9238 2470 8565"
+      },
+      {
+        "category": "PAN",
+        "value": "TKKSK8654J"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9844421046"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109284519545"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "ananya.singh@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 746, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: ananya.singh@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 746, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-045",
+    "doc_type": "Insurance Claim",
+    "purpose": "customer_support",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: Ananya Singh\nAadhaar Number: 6313 9439 0185\nPermanent Account Number (PAN): ISRSK9837P\nPrimary Mobile: +91-9867540650\nEmail: ananya.singh@corp.in\nBank Account No: 109284867670\nResidential Address: Flat 792, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Ananya Singh"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "6313 9439 0185"
+      },
+      {
+        "category": "PAN",
+        "value": "ISRSK9837P"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9867540650"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109284867670"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "ananya.singh@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 792, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: INSURANCE CLAIM\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: ananya.singh@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 792, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-046",
+    "doc_type": "Customer Support Ticket",
+    "purpose": "customer_support",
+    "language": "Telugu",
+    "lang_code": "te",
+    "original_text": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: విక్రమ్ రెడ్డి\nAadhaar Number: 9818 1597 6328\nPAN: YDIPK3262I\nContact Mobile: 9849045678\nAccount: 501005968871\nLocation: హైదరాబాద్\nNotes: Processing requested.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "విక్రమ్ రెడ్డి"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9818 1597 6328"
+      },
+      {
+        "category": "PAN",
+        "value": "YDIPK3262I"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9849045678"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501005968871"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE RECORD: CUSTOMER SUPPORT TICKET\nSignatory Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPAN: <PAN_1>\nContact Mobile: <PHONE_NUMBER_1>\nAccount: <BANK_ACCOUNT_1>\nLocation: హైదరాబాద్\nNotes: Processing requested."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-047",
+    "doc_type": "Employee Onboarding Record",
+    "purpose": "general_inquiry",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: Pooja Reddy\nAadhaar Number: 9050 9625 1310\nPermanent Account Number (PAN): JMPRK9662L\nPrimary Mobile: +91-9890671585\nEmail: pooja.reddy@corp.in\nBank Account No: 109286976788\nResidential Address: Flat 138, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Pooja Reddy"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9050 9625 1310"
+      },
+      {
+        "category": "PAN",
+        "value": "JMPRK9662L"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9890671585"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109286976788"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "pooja.reddy@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 138, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: EMPLOYEE ONBOARDING RECORD\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: pooja.reddy@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 138, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-048",
+    "doc_type": "Banking Statement Memo",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: Pooja Sharma\nAadhaar Number: 3925 4651 3780\nPermanent Account Number (PAN): VFVSK0330Z\nPrimary Mobile: +91-9891078112\nEmail: pooja.sharma@corp.in\nBank Account No: 109286324858\nResidential Address: Flat 765, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Pooja Sharma"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "3925 4651 3780"
+      },
+      {
+        "category": "PAN",
+        "value": "VFVSK0330Z"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9891078112"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109286324858"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "pooja.sharma@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 765, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: BANKING STATEMENT MEMO\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: pooja.sharma@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 765, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-049",
+    "doc_type": "Loan Application",
+    "purpose": "loan_processing",
+    "language": "Kannada",
+    "lang_code": "kn",
+    "original_text": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: ರಾಹುಲ್ ಶರ್ಮಾ\nಆಧಾರ್ ಸಂಖ್ಯೆ: 9632 5301 6159\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: OSPPK0846L\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: 9845012345\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: 501006480832\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "ರಾಹುಲ್ ಶರ್ಮಾ"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "9632 5301 6159"
+      },
+      {
+        "category": "PAN",
+        "value": "OSPPK0846L"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "9845012345"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "501006480832"
+      }
+    ],
+    "expected_sanitized_output": "ದಾಖಲೆ: LOAN APPLICATION\nಅರ್ಜಿದಾರ ಹೆಸರು: <PERSON_1>\nಆಧಾರ್ ಸಂಖ್ಯೆ: <AADHAAR_1>\nಪ್ಯಾನ್ ಸಂಖ್ಯೆ: <PAN_1>\nಮೊಬೈಲ್ ಸಂಖ್ಯೆ: <PHONE_NUMBER_1>\nಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ: <BANK_ACCOUNT_1>\nವಿಳಾಸ: ಎಂ.ಜಿ. ರಸ್ತೆ, ಬೆಂಗಳೂರು\nವಿವರ: ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ."
+  },
+  {
+    "doc_id": "PRIVOPS-DOC-050",
+    "doc_type": "KYC Verification",
+    "purpose": "loan_processing",
+    "language": "English",
+    "lang_code": "en",
+    "original_text": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: Rohan Verma\nAadhaar Number: 8545 2054 8808\nPermanent Account Number (PAN): XNWVK8280Q\nPrimary Mobile: +91-9861136950\nEmail: rohan.verma@corp.in\nBank Account No: 109286581949\nResidential Address: Flat 493, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards.",
+    "expected_entities": [
+      {
+        "category": "PERSON",
+        "value": "Rohan Verma"
+      },
+      {
+        "category": "AADHAAR",
+        "value": "8545 2054 8808"
+      },
+      {
+        "category": "PAN",
+        "value": "XNWVK8280Q"
+      },
+      {
+        "category": "PHONE_NUMBER",
+        "value": "+91-9861136950"
+      },
+      {
+        "category": "BANK_ACCOUNT",
+        "value": "109286581949"
+      },
+      {
+        "category": "EMAIL_ADDRESS",
+        "value": "rohan.verma@corp.in"
+      },
+      {
+        "category": "ADDRESS",
+        "value": "Flat 493, MG Road, Bengaluru - 560038"
+      }
+    ],
+    "expected_sanitized_output": "ENTERPRISE DOCUMENT: KYC VERIFICATION\nApplicant Name: <PERSON_1>\nAadhaar Number: <AADHAAR_1>\nPermanent Account Number (PAN): <PAN_1>\nPrimary Mobile: <PHONE_NUMBER_1>\nEmail: rohan.verma@corp.in\nBank Account No: <BANK_ACCOUNT_1>\nResidential Address: Flat 493, MG Road, Bengaluru - 560038\nPurpose: Process application with regulatory safeguards."
+  }
+]

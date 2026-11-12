@@ -5,6 +5,10 @@ to identify Aadhaar, PAN, GSTIN, Voter ID, Passport, Phone, Email, Bank A/C, Add
 """
 
 import os
+import sys
+
+# Prevent debugpy PEP 669 sys.monitoring assertion conflict with Cython on Python 3.12+
+os.environ["PYDEVD_DISABLE_SYS_MONITORING"] = "1"
 import re
 from typing import List, Dict, Any, Optional
 

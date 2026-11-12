@@ -299,3 +299,4 @@ def create_pdf(output_path: str = "PRIVOPS_Project_Report.pdf"):
 
 if __name__ == "__main__":
     create_pdf("D:\\mineareana\\PRIVOPS_Project_Report.pdf")
+

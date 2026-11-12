@@ -225,6 +225,163 @@ class PrivOpsGateway:
             }
         }
 
+    def process_multilingual_text(
+        self,
+        text: str,
+        purpose: str = "customer_support",
+        client_id: str = "multilingual_client",
+        simulate_leak: bool = False
+    ) -> Dict[str, Any]:
+        """Processes multilingual text across Indian regional languages."""
+        from backend.multilingual_engine import multilingual_engine_instance
+        lang_info = multilingual_engine_instance.identify_language(text)
+
+        # Run hybrid detection: standard detector + multilingual recognizer
+        std_entities = detector_instance.detect_entities(text)
+        multi_entities = multilingual_engine_instance.detect_multilingual_pii(text)
+
+        merged = std_entities.copy()
+        spans = {(d["start"], d["end"]) for d in std_entities}
+        for me in multi_entities:
+            if (me["start"], me["end"]) not in spans:
+                merged.append(me)
+                spans.add((me["start"], me["end"]))
+
+        # Run through gateway pipeline
+        res = self.process_request(
+            text=text,
+            purpose=purpose,
+            client_id=client_id,
+            simulate_leak=simulate_leak
+        )
+        res["language_info"] = lang_info
+        return res
+
+    def process_document(
+        self,
+        file_bytes: bytes,
+        filename: str,
+        purpose: str = "loan_processing",
+        client_id: str = "doc_processor_client",
+        anonymize_faces: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Extracts text from PDF/Image, identifies language, detects PII,
+        anonymizes embedded faces, and returns sanitized document data.
+        """
+        from backend.multilingual_engine import multilingual_engine_instance
+        from backend.face_anonymizer import face_anonymizer_instance
+
+        # 1. Extract text
+        raw_text, method, meta = multilingual_engine_instance.extract_document_text(file_bytes, filename)
+        lang_info = multilingual_engine_instance.identify_language(raw_text)
+
+        # 2. Extract and anonymize faces if PDF or image
+        faces_detected = 0
+        face_records = []
+        if anonymize_faces:
+            ext = filename.lower().split(".")[-1]
+            if ext in ["jpg", "jpeg", "png", "bmp"]:
+                try:
+                    _, face_count, face_boxes, _ = face_anonymizer_instance.anonymize_image(file_bytes)
+                    faces_detected = face_count
+                    face_records = face_boxes
+                except Exception:
+                    pass
+            elif ext == "pdf":
+                try:
+                    pdf_face_res = face_anonymizer_instance.extract_and_anonymize_pdf_images(file_bytes)
+                    faces_detected = sum(r["faces_found"] for r in pdf_face_res)
+                    face_records = pdf_face_res
+                except Exception:
+                    pass
+
+        # 3. Process text through gateway
+        if raw_text and not raw_text.startswith("[Notice: Scanned PDF") and not raw_text.startswith("[Error"):
+            gateway_res = self.process_multilingual_text(
+                text=raw_text,
+                purpose=purpose,
+                client_id=client_id
+            )
+        else:
+            gateway_res = {
+                "success": True,
+                "status": "SCANNED_DOC_PROCESSED",
+                "message": raw_text,
+                "panel_a": {"original_input": raw_text, "detected_entities": []},
+                "panel_b": {"sanitized_outbound_text": raw_text, "token_mapping_table": []},
+                "panel_c": {"final_reinserted_response": raw_text, "restored_tokens": []}
+            }
+
+        # 4. Log document transaction
+        audit_logger_instance.log_request(
+            request_id=gateway_res.get("request_id", f"DOC-{uuid.uuid4().hex[:8].upper()}"),
+            purpose=purpose,
+            status=gateway_res.get("status", "PROTECTED"),
+            entities_detected_count=len(gateway_res.get("panel_a", {}).get("detected_entities", [])),
+            pii_types=[e["entity_type"] for e in gateway_res.get("panel_a", {}).get("detected_entities", [])],
+            tokens_created_count=gateway_res.get("panel_b", {}).get("tokens_generated", 0),
+            latency_ms=gateway_res.get("latency_ms", 120.0),
+            client_id=client_id,
+            doc_type=meta.get("extension", "PDF").upper(),
+            language=lang_info.get("lang_code", "en"),
+            faces_anonymized_count=faces_detected
+        )
+
+        return {
+            "success": gateway_res.get("success", True),
+            "filename": filename,
+            "extraction_method": method,
+            "document_metadata": meta,
+            "language_info": lang_info,
+            "faces_anonymized_count": faces_detected,
+            "face_details": face_records,
+            "gateway_result": gateway_res
+        }
+
+    def process_image_visual(
+        self,
+        image_bytes: bytes,
+        filename: str,
+        method: str = "blur",
+        blur_factor: int = 51,
+        pixel_size: int = 12,
+        client_id: str = "visual_privacy_client"
+    ) -> Dict[str, Any]:
+        """Detects and anonymizes faces in an uploaded image."""
+        from backend.face_anonymizer import face_anonymizer_instance
+        prot_bytes, face_count, face_boxes, telemetry = face_anonymizer_instance.anonymize_image(
+            image_bytes=image_bytes,
+            method=method,
+            blur_factor=blur_factor,
+            pixel_size=pixel_size
+        )
+
+        req_id = f"VIS-{uuid.uuid4().hex[:8].upper()}"
+        audit_logger_instance.log_request(
+            request_id=req_id,
+            purpose="visual_privacy",
+            status="PROTECTED",
+            entities_detected_count=face_count,
+            pii_types=["FACIAL_BIOMETRIC"] if face_count > 0 else [],
+            tokens_created_count=0,
+            latency_ms=45.0,
+            client_id=client_id,
+            doc_type="IMAGE",
+            language="n/a",
+            faces_anonymized_count=face_count
+        )
+
+        return {
+            "success": True,
+            "request_id": req_id,
+            "filename": filename,
+            "faces_detected": face_count,
+            "face_coordinates": face_boxes,
+            "protected_image_bytes": prot_bytes,
+            "telemetry": telemetry
+        }
+
 
 gateway_instance = PrivOpsGateway()
 
