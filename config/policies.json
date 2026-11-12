@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "dpdp_alignment": "DPDP Act 2023 - Section 6 (Purpose Limitation & Data Minimization)",
+  "policies": {
+    "customer_support": {
+      "display_name": "Customer Support & Grievance Redressal",
+      "description": "Handling customer complaints, order inquiries, and account status requests.",
+      "allowed": ["PERSON", "PHONE_NUMBER", "EMAIL_ADDRESS"],
+      "masked": ["PAN", "ADDRESS"],
+      "blocked": ["AADHAAR", "BANK_ACCOUNT", "PASSPORT", "VOTER_ID", "GSTIN"],
+      "max_token_retention_minutes": 60,
+      "dpdp_clause": "Section 6(1) - Processing strictly necessary for resolving requested support ticket."
+    },
+    "loan_processing": {
+      "display_name": "Loan Application & Credit Underwriting",
+      "description": "Evaluating customer creditworthiness, KYC verification, and loan sanctioning.",
+      "allowed": ["PERSON", "PAN", "BANK_ACCOUNT", "PHONE_NUMBER", "EMAIL_ADDRESS", "ADDRESS"],
+      "masked": ["AADHAAR", "GSTIN"],
+      "blocked": ["PASSPORT", "VOTER_ID"],
+      "max_token_retention_minutes": 120,
+      "dpdp_clause": "Section 6(2) - KYC & Credit risk assessment under regulatory compliance."
+    },
+    "marketing": {
+      "display_name": "Marketing & Promotional Campaigns",
+      "description": "Drafting personalized newsletters, promotional pitches, and product recommendations.",
+      "allowed": ["PERSON", "EMAIL_ADDRESS"],
+      "masked": ["PHONE_NUMBER"],
+      "blocked": ["AADHAAR", "PAN", "BANK_ACCOUNT", "PASSPORT", "VOTER_ID", "GSTIN", "ADDRESS"],
+      "max_token_retention_minutes": 15,
+      "dpdp_clause": "Section 6(1) - Strict Data Minimization; financial and identity credentials strictly prohibited."
+    },
+    "fraud_investigation": {
+      "display_name": "Fraud Detection & Risk Audit",
+      "description": "Analyzing suspicious transactions, anomalous account behavior, and security audits.",
+      "allowed": ["PERSON", "PAN", "BANK_ACCOUNT", "PHONE_NUMBER", "EMAIL_ADDRESS", "GSTIN", "AADHAAR"],
+      "masked": ["PASSPORT", "VOTER_ID", "ADDRESS"],
+      "blocked": [],
+      "max_token_retention_minutes": 240,
+      "dpdp_clause": "Section 17(1)(c) - Prevention and detection of financial fraud and legal obligations."
+    },
+    "general_inquiry": {
+      "display_name": "General Enterprise Inquiry",
+      "description": "General text generation, brainstorming, code assistance, and summarization.",
+      "allowed": ["PERSON"],
+      "masked": ["EMAIL_ADDRESS"],
+      "blocked": ["AADHAAR", "PAN", "BANK_ACCOUNT", "PASSPORT", "VOTER_ID", "GSTIN", "PHONE_NUMBER", "ADDRESS"],
+      "max_token_retention_minutes": 10,
+      "dpdp_clause": "Section 6 - Minimization; no personal identifiers allowed in general LLM queries."
+    }
+  }
+}
+

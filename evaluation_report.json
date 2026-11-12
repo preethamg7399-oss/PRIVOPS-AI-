@@ -1,0 +1,16 @@
+{
+  "dataset_size_documents": 50,
+  "total_expected_entities": 300,
+  "total_detected_entities": 311,
+  "true_positives": 270,
+  "false_positives": 41,
+  "false_negatives": 30,
+  "pii_detection_precision": 86.82,
+  "pii_detection_recall": 90.0,
+  "pii_detection_f1_score": 88.38,
+  "tokenization_accuracy": 100.0,
+  "reinsertion_accuracy": 100.0,
+  "outbound_pii_leakage_rate": 0.0,
+  "request_blocking_accuracy": 100.0,
+  "average_processing_latency_ms": 154.56
+}

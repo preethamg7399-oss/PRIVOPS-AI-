@@ -1,0 +1,54 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Streamlit: Launch PRIVOPS Dashboard",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "streamlit",
+      "args": [
+        "run",
+        "${workspaceFolder}/frontend/dashboard.py",
+        "--server.port=8501"
+      ],
+      "noDebug": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "FastAPI: Launch PRIVOPS Gateway API",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "backend.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--reload"
+      ],
+      "noDebug": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run Evaluation Benchmark (50 Docs)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/evaluate.py",
+      "noDebug": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run Pytest Suite",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "tests",
+        "-v"
+      ],
+      "noDebug": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
