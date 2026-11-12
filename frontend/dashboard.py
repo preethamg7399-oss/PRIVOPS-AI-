@@ -324,54 +324,40 @@ if menu_selection == "🏛️ Overview":
 
     st.markdown("---")
 
-    c_arch, c_matrix = st.columns([1, 1])
-    with c_arch:
-        st.markdown("##### 🛡️ End-to-End System Architecture")
-        st.code("""
-USER / ENTERPRISE APP
-         │
-         ▼
-   PRIVOPS GATEWAY ───► [Step 1] Purpose Validation (DPDP Sec 6)
-         │
-         ▼
-   DETECTION ENGINE ──► [Step 2] Multilingual PII & OCR
-         │
-         ▼
-     TOKENIZER ───────► [Step 3] Smart Tokenization (<PERSON_1>)
-         │
-         ▼
-  ENCRYPTED VAULT ────► [Step 4] AES-128 Local Memory Vault
-         │
-         ▼
-    LEAK GUARD ───────► [Step 5] Dual-Stage Outbound Scan (0% Leak)
-         │
-         ▼
-   SANITIZED PAYLOAD ─► [Step 6] Transmit to External LLM
-         │
-         ▼
-   EXTERNAL LLM ──────► [Step 7] AI Response with Tokens
-         │
-         ▼
-    REINSERTION ──────► [Step 8] Local Decryption & Safe Restoration
-         │
-         ▼
-    FINAL RESPONSE ───► [Step 9] Restored Output Delivered to User
-         │
-         ▼
-   INCIDENT & AUDIT ──► [Step 10] SQLite Logging (0 Raw PII Retained)
-        """, language="text")
+    st.markdown("##### ⚖️ DPDP Act 2023 Statutory Alignment Matrix")
+    dpdp_data = [
+        {"DPDP Principle": "Purpose Limitation (Sec 6)", "Gateway Safeguard": "PurposeEngine validates prompt context before AI call", "Status": "ENFORCED"},
+        {"DPDP Principle": "Data Minimization (Sec 6)", "Gateway Safeguard": "Unnecessary identifiers blocked or masked per purpose", "Status": "ENFORCED"},
+        {"DPDP Principle": "Security Safeguards (Sec 8)", "Gateway Safeguard": "Encrypted Local Vault (AES-128 Fernet) isolates mappings", "Status": "ENFORCED"},
+        {"DPDP Principle": "Visual Privacy & Biometrics", "Gateway Safeguard": "OpenCV YuNet auto-anonymizes faces in documents/images", "Status": "ACTIVE"},
+        {"DPDP Principle": "Zero Outbound Exposure", "Gateway Safeguard": "LeakGuard scans outbound payload guaranteeing 0.00% leak", "Status": "VERIFIED"},
+        {"DPDP Principle": "Breach Tracking (Sec 8(6))", "Gateway Safeguard": "IncidentManager logs policy breaches without raw PII", "Status": "ACTIVE"},
+    ]
+    st.dataframe(pd.DataFrame(dpdp_data), use_container_width=True)
 
-    with c_matrix:
-        st.markdown("##### ⚖️ DPDP Act 2023 Statutory Alignment Matrix")
-        dpdp_data = [
-            {"DPDP Principle": "Purpose Limitation (Sec 6)", "Gateway Safeguard": "PurposeEngine validates prompt context before AI call", "Status": "ENFORCED"},
-            {"DPDP Principle": "Data Minimization (Sec 6)", "Gateway Safeguard": "Unnecessary identifiers blocked or masked per purpose", "Status": "ENFORCED"},
-            {"DPDP Principle": "Security Safeguards (Sec 8)", "Gateway Safeguard": "Encrypted Local Vault (AES-128 Fernet) isolates mappings", "Status": "ENFORCED"},
-            {"DPDP Principle": "Visual Privacy & Biometrics", "Gateway Safeguard": "OpenCV YuNet auto-anonymizes faces in documents/images", "Status": "ACTIVE"},
-            {"DPDP Principle": "Zero Outbound Exposure", "Gateway Safeguard": "LeakGuard scans outbound payload guaranteeing 0.00% leak", "Status": "VERIFIED"},
-            {"DPDP Principle": "Breach Tracking (Sec 8(6))", "Gateway Safeguard": "IncidentManager logs policy breaches without raw PII", "Status": "ACTIVE"},
-        ]
-        st.dataframe(pd.DataFrame(dpdp_data), use_container_width=True)
+    st.markdown("---")
+    st.markdown("##### 🛡️ Core Protection Pillars")
+    p1, p2, p3, p4 = st.columns(4)
+    with p1:
+        st.markdown("""
+        **🔒 Zero-Leakage Guarantee**  
+        Pre-outbound heuristic and regex verification guarantees 0.00% raw personal data transmission to external LLMs.
+        """)
+    with p2:
+        st.markdown("""
+        **🔐 AES-128 Local Vault**  
+        Cryptographic token mappings are isolated exclusively in local memory; no decrypted keys ever cross the boundary.
+        """)
+    with p3:
+        st.markdown("""
+        **🌐 8-Language Multilingual**  
+        Native PII recognition & regional digit normalization across Kannada, Hindi, Tamil, Telugu, Malayalam, Marathi, Bengali, and English.
+        """)
+    with p4:
+        st.markdown("""
+        **👁️ Visual Privacy (YuNet)**  
+        DNN face detection with Gaussian blur, pixelation, or redaction masking ensuring visual biometrics never leave the perimeter.
+        """)
 
 # =========================================================================
 # SECTION 2: TEXT PROTECTION (Original Three-Pane Live Demo)
