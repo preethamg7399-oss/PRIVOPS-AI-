@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: privops-privacy-gateway
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt && python -m spacy download en_core_web_sm
+    startCommand: streamlit run frontend/dashboard.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYDEVD_DISABLE_SYS_MONITORING
+        value: "1"

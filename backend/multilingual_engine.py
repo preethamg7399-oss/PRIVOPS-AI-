@@ -64,7 +64,7 @@ MULTILINGUAL_PATTERNS = {
     "name_headers": re.compile(
         r"(?:name|applicant|customer|client|signatory|नाम|आवेदक|ग्राहक|नाव|अर्जदार|"
         r"ಹೆಸರು|ಅರ್ಜಿದಾರ|ಗ್ರಾಹಕ|பெயர்|விண்ணப்பதாரர்|വാடிக்கையாளர்|పేరు|దరఖాస్తుదారు|"
-        r"പേര്|അപേക്ഷകൻ|নাম|আবেদনকারী)\s*[:\-]\s*([^\n\r,]+)",
+        r"പേര്|അപേക്ഷകൻ|নাম|আবেদনকারী)[^\n\r:\-]*?[:\-]\s*([^\n\r,]+)",
         re.IGNORECASE
     ),
     "aadhaar_headers": re.compile(
@@ -82,7 +82,7 @@ MULTILINGUAL_PATTERNS = {
     ),
     "address_headers": re.compile(
         r"(?:address|residential\s*address|पता|पत्ता|रहिवासी\s*पत्ता|ವಿಳಾಸ|ವಾಸಸ್ಥಳ|"
-        r"முகவரி|இருப்பிடம்|చిరునామా|വിലാസം|ঠিকানা)\s*[:\-]\s*([^\n\r]+)",
+        r"முகவரி|இருப்பிடம்|చిరునామా|വിലാസം|ঠিকানা)[^\n\r:\-]*?[:\-]\s*([^\n\r]+)",
         re.IGNORECASE
     ),
     "bank_headers": re.compile(

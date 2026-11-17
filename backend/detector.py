@@ -23,6 +23,16 @@ from presidio_analyzer.nlp_engine import NlpEngineProvider
 from backend.recognizers import IndianPIIRecognizers, validate_verhoeff
 
 
+INVALID_PERSON_WORDS = {
+    "email", "phone", "mobile", "address", "contact", "applicant", "customer",
+    "state", "city", "bank", "account", "number", "card", "name", "pan", "aadhaar",
+    "official", "primary", "residential", "disbursement", "applied", "request",
+    "date", "status", "id", "male", "female", "yes", "no", "true", "false",
+    "na", "null", "none", "memo", "form", "ticket", "facility", "expansion",
+    "loan", "authorized", "company", "registered", "draft", "vendor", "master"
+}
+
+
 class PIIDetectionEngine:
     """
     Intelligent PII Detection Engine combining:
@@ -67,7 +77,16 @@ class PIIDetectionEngine:
         tracer = sys.gettrace()
         try:
             sys.settrace(None)
-            self.nlp = spacy.load("en_core_web_sm")
+            try:
+                self.nlp = spacy.load("en_core_web_sm")
+            except Exception:
+                try:
+                    import spacy.cli
+                    spacy.cli.download("en_core_web_sm")
+                    self.nlp = spacy.load("en_core_web_sm")
+                except Exception as dl_err:
+                    print(f"[PRIVOPS Warning] Could not load or download en_core_web_sm: {dl_err}")
+                    self.nlp = None
         except (Exception, BaseException) as e:
             print(f"[PRIVOPS Notice] spaCy loading bypassed (debugger active): {e}")
             self.nlp = None
@@ -155,6 +174,9 @@ class PIIDetectionEngine:
                     if p_type == "CREDIT_CARD" or p_type == "IBAN_CODE":
                         p_type = "BANK_ACCOUNT"
 
+                    if p_type == "PERSON" and val.strip().lower() in INVALID_PERSON_WORDS:
+                        continue
+
                     raw_candidates.append({
                         "entity_type": p_type,
                         "start": res.start,
@@ -172,7 +194,7 @@ class PIIDetectionEngine:
             for ent in spacy_doc.ents:
                 if ent.label_ == "PERSON":
                     val = ent.text.strip()
-                    if len(val) >= 2 and not any(ch.isdigit() for ch in val):
+                    if len(val) >= 2 and not any(ch.isdigit() for ch in val) and val.lower() not in INVALID_PERSON_WORDS:
                         raw_candidates.append({
                             "entity_type": "PERSON",
                             "start": ent.start_char,

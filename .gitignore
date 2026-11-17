@@ -9,4 +9,5 @@ __pycache__/
 .coverage
 htmlcov/
 .streamlit/
+.offline-markdown-preview/
 

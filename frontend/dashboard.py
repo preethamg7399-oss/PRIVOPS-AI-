@@ -263,6 +263,72 @@ menu_selection = st.sidebar.radio(
     ]
 )
 
+# =========================================================================
+# GLOBAL PERSISTENT WORKSPACE
+# Uploaded files persist across all pages without asking to re-upload
+# =========================================================================
+st.sidebar.markdown("---")
+st.sidebar.subheader("📂 Document & Folder Workspace")
+st.sidebar.caption("Upload documents once; they are automatically active across all sections without re-uploading.")
+
+if "workspace_documents" not in st.session_state:
+    st.session_state["workspace_documents"] = {}
+
+workspace_uploads = st.sidebar.file_uploader(
+    "Upload Files or Folder Content:",
+    type=["pdf", "png", "jpg", "jpeg", "txt", "json", "csv"],
+    accept_multiple_files=True,
+    key="global_workspace_uploader",
+    help="Files uploaded here remain accessible in Document Protection, Multilingual, Visual Privacy, and Evaluation without re-uploading."
+)
+
+if workspace_uploads:
+    for f in workspace_uploads:
+        if f.name not in st.session_state["workspace_documents"]:
+            f_bytes = f.getvalue()
+            raw_text, method, meta = multilingual_engine_instance.extract_document_text(f_bytes, f.name)
+            lang_info = multilingual_engine_instance.identify_language(raw_text)
+            faces_count = 0
+            ext = f.name.lower().split(".")[-1]
+            if ext in ["jpg", "jpeg", "png", "bmp"]:
+                try:
+                    _, faces_count, _, _ = face_anonymizer_instance.anonymize_image(f_bytes)
+                except Exception:
+                    pass
+            elif ext == "pdf":
+                try:
+                    pdf_faces = face_anonymizer_instance.extract_and_anonymize_pdf_images(f_bytes)
+                    faces_count = sum(p["faces_found"] for p in pdf_faces)
+                except Exception:
+                    pass
+
+            st.session_state["workspace_documents"][f.name] = {
+                "filename": f.name,
+                "bytes": f_bytes,
+                "text": raw_text,
+                "method": method,
+                "meta": meta,
+                "lang_info": lang_info,
+                "faces_count": faces_count
+            }
+
+if st.session_state["workspace_documents"]:
+    doc_names = list(st.session_state["workspace_documents"].keys())
+    active_idx = st.sidebar.selectbox(
+        "Active Workspace Document:",
+        range(len(doc_names)),
+        format_func=lambda i: doc_names[i],
+        key="active_doc_picker"
+    )
+    st.session_state["active_doc"] = st.session_state["workspace_documents"][doc_names[active_idx]]
+    st.sidebar.success(f"📄 Active: `{doc_names[active_idx]}` ({len(doc_names)} file(s) loaded)")
+    if st.sidebar.button("🗑️ Clear Workspace", key="btn_clear_workspace"):
+        st.session_state["workspace_documents"] = {}
+        st.session_state["active_doc"] = None
+        st.rerun()
+else:
+    st.session_state["active_doc"] = None
+
 st.sidebar.markdown("---")
 st.sidebar.subheader("🔒 Gateway Telemetry")
 v_stats = vault_instance.get_vault_stats()
@@ -460,9 +526,19 @@ elif menu_selection == "🛡️ Text Protection":
             "Please review my query regarding account services."
         )
 
+    # Retain user modifications so erased text does not reappear on process/rerun
+    if "text_proto_scenario" not in st.session_state or st.session_state.get("text_proto_scenario") != preset_choice:
+        st.session_state["text_proto_scenario"] = preset_choice
+        st.session_state["text_proto_input"] = default_text
+
     col_input, col_action = st.columns([3, 1])
     with col_input:
-        input_text = st.text_area("Input Document / User Prompt:", value=default_text, height=180)
+        input_text = st.text_area(
+            "Input Document / User Prompt:",
+            key="text_proto_input",
+            height=180,
+            help="You can edit, modify, or erase any part of the prompt. Your edits are preserved during processing."
+        )
 
     with col_action:
         st.markdown("**Gateway Security Controls**")
@@ -478,7 +554,7 @@ elif menu_selection == "🛡️ Text Protection":
         if process_btn:
             with st.spinner("Executing PRIVOPS zero-exposure pipeline..."):
                 res = gateway_instance.process_request(
-                    text=input_text,
+                    text=st.session_state["text_proto_input"],
                     purpose=selected_purpose,
                     client_id="streamlit_user_session",
                     simulate_leak=simulate_leak_toggle
@@ -487,33 +563,6 @@ elif menu_selection == "🛡️ Text Protection":
 
         res = st.session_state.get("last_gateway_result", {})
         status = res.get("status")
-
-        if status == "PROTECTED":
-            st.markdown(f"""
-            <div class="banner-protected">
-                ✅ <strong>GATEWAY STATUS: PROTECTED & SANITIZED</strong><br>
-                Zero raw PII bytes leaked outbound. Tokenization 100% verified. Reinserted locally from local vault.
-                (Latency: {res.get('latency_ms')} ms | Provider: {res.get('llm_provider')})
-            </div>
-            """, unsafe_allow_html=True)
-        elif status == "BLOCKED":
-            st.markdown(f"""
-            <div class="banner-blocked">
-                🛑 <strong>GATEWAY STATUS: REQUEST BLOCKED (DPDP PURPOSE VIOLATION)</strong><br>
-                {res.get('message')}<br>
-                <strong>Blocked Entity Types:</strong> {', '.join(res.get('blocked_entities', []))} | 
-                <strong>Incident ID:</strong> {res.get('incident', {}).get('incident_id')}
-            </div>
-            """, unsafe_allow_html=True)
-        elif status == "LEAK_PREVENTED":
-            st.markdown(f"""
-            <div class="banner-leak">
-                🚨 <strong>GATEWAY STATUS: LEAKGUARD INTERCEPTED (OUTBOUND LEAK PREVENTED)</strong><br>
-                {res.get('message')}<br>
-                <strong>Intercepted Items:</strong> {', '.join(res.get('leaked_items', []))} |
-                <strong>Incident ID:</strong> {res.get('incident', {}).get('incident_id')}
-            </div>
-            """, unsafe_allow_html=True)
 
         pane_a, pane_b, pane_c = st.columns(3)
 
@@ -605,11 +654,35 @@ elif menu_selection == "📄 Document Protection":
 
     doc_col1, doc_col2 = st.columns([2, 1])
     with doc_col1:
-        uploaded_doc = st.file_uploader(
-            "Choose a document (PDF, PNG, JPG, JPEG, TXT):",
-            type=["pdf", "png", "jpg", "jpeg", "txt"],
-            key="doc_main_uploader"
+        uploaded_docs = st.file_uploader(
+            "Choose document(s) or folder content (PDF, PNG, JPG, JPEG, TXT):",
+            type=["pdf", "png", "jpg", "jpeg", "txt", "json", "csv"],
+            accept_multiple_files=True,
+            key="doc_page_uploader"
         )
+        if uploaded_docs:
+            for f in uploaded_docs:
+                if f.name not in st.session_state["workspace_documents"]:
+                    f_bytes = f.getvalue()
+                    raw_text, method, meta = multilingual_engine_instance.extract_document_text(f_bytes, f.name)
+                    lang_info = multilingual_engine_instance.identify_language(raw_text)
+                    faces_count = 0
+                    ext = f.name.lower().split(".")[-1]
+                    if ext in ["jpg", "jpeg", "png", "bmp"]:
+                        try:
+                            _, faces_count, _, _ = face_anonymizer_instance.anonymize_image(f_bytes)
+                        except Exception:
+                            pass
+                    st.session_state["workspace_documents"][f.name] = {
+                        "filename": f.name,
+                        "bytes": f_bytes,
+                        "text": raw_text,
+                        "method": method,
+                        "meta": meta,
+                        "lang_info": lang_info,
+                        "faces_count": faces_count
+                    }
+            st.session_state["active_doc"] = st.session_state["workspace_documents"][uploaded_docs[-1].name]
 
     with doc_col2:
         doc_purpose = st.selectbox(
@@ -619,35 +692,31 @@ elif menu_selection == "📄 Document Protection":
         )
         auto_anonymize_faces = st.checkbox("Anonymize Embedded Photo/Face Biometrics", value=True, key="doc_anon_faces")
 
-    if uploaded_doc is not None:
-        if st.session_state.get("doc_last_name") != uploaded_doc.name:
-            file_bytes = uploaded_doc.getvalue()
-            raw_text, method, meta = multilingual_engine_instance.extract_document_text(file_bytes, uploaded_doc.name)
-            st.session_state["doc_last_name"] = uploaded_doc.name
-            st.session_state["doc_file_bytes"] = file_bytes
-            st.session_state["doc_input_text"] = raw_text
-            st.session_state["doc_method"] = method
-            st.session_state["doc_meta"] = meta
-            st.session_state.pop("last_doc_result", None)
+    active_doc = st.session_state.get("active_doc")
+
+    if active_doc is not None:
+        st.success(f"📄 Loaded Active Document: **{active_doc['filename']}** | Method: `{active_doc['method']}` | Language: **{active_doc['lang_info']['language']}** ({active_doc['lang_info']['script']} script)")
+
+        if "doc_text_editor" not in st.session_state or st.session_state.get("doc_last_loaded_name") != active_doc["filename"]:
+            st.session_state["doc_last_loaded_name"] = active_doc["filename"]
+            st.session_state["doc_text_editor"] = active_doc["text"]
 
         st.markdown("##### ✏️ Review & Modify Input Document")
-        st.caption(f"Extraction Method: `{st.session_state.get('doc_method', 'auto')}` | You can edit or modify the document content before sanitization.")
+        st.caption("You can edit, modify, or erase any part of the document text. Your changes are preserved when processing.")
         modified_doc_text = st.text_area(
             "Input Document Content (Editable / Modifiable):",
-            value=st.session_state.get("doc_input_text", ""),
-            height=200,
-            key="doc_text_editor"
+            key="doc_text_editor",
+            height=200
         )
-        st.session_state["doc_input_text"] = modified_doc_text
 
         process_doc_btn = st.button("📄 Sanitize & Protect Document", type="primary", use_container_width=True, key="btn_proc_doc")
 
         if process_doc_btn:
             with st.spinner("Processing document text and applying privacy safeguards..."):
-                faces_detected = 0
-                if auto_anonymize_faces:
-                    ext = uploaded_doc.name.lower().split(".")[-1]
-                    raw_bytes = st.session_state.get("doc_file_bytes", b"")
+                faces_detected = active_doc.get("faces_count", 0)
+                if auto_anonymize_faces and faces_detected == 0:
+                    ext = active_doc["filename"].lower().split(".")[-1]
+                    raw_bytes = active_doc["bytes"]
                     if ext in ["jpg", "jpeg", "png", "bmp"]:
                         try:
                             _, face_count, _, _ = face_anonymizer_instance.anonymize_image(raw_bytes)
@@ -662,16 +731,16 @@ elif menu_selection == "📄 Document Protection":
                             pass
 
                 gw_res = gateway_instance.process_multilingual_text(
-                    text=modified_doc_text,
+                    text=st.session_state["doc_text_editor"],
                     purpose=doc_purpose
                 )
                 lang_info = gw_res.get("language_info", {})
                 st.session_state["last_doc_result"] = {
                     "gateway_result": gw_res,
                     "language_info": lang_info,
-                    "extraction_method": st.session_state.get("doc_method", "digital"),
+                    "extraction_method": active_doc["method"],
                     "faces_anonymized_count": faces_detected,
-                    "filename": uploaded_doc.name
+                    "filename": active_doc["filename"]
                 }
 
         if "last_doc_result" in st.session_state:
@@ -751,29 +820,47 @@ elif menu_selection == "🌐 Multilingual Processing":
                 key="multi_doc_purpose"
             )
 
+        active_doc = st.session_state.get("active_doc")
+        if active_doc is not None:
+            st.success(f"📄 Using Active Document: **{active_doc['filename']}** ({active_doc['lang_info']['language']})")
+            if "multi_doc_editor" not in st.session_state or st.session_state.get("multi_doc_last_name") != active_doc["filename"]:
+                st.session_state["multi_doc_last_name"] = active_doc["filename"]
+                st.session_state["multi_doc_editor"] = active_doc["text"]
+
         if multi_file is not None:
             if st.session_state.get("multi_doc_last_name") != multi_file.name:
                 m_bytes = multi_file.getvalue()
                 m_text, m_method, m_meta = multilingual_engine_instance.extract_document_text(m_bytes, multi_file.name)
                 st.session_state["multi_doc_last_name"] = multi_file.name
-                st.session_state["multi_doc_extracted_text"] = m_text
+                st.session_state["multi_doc_editor"] = m_text
                 st.session_state["multi_doc_method"] = m_method
                 st.session_state.pop("last_multi_doc_res", None)
+                # Sync with global workspace
+                st.session_state["workspace_documents"][multi_file.name] = {
+                    "filename": multi_file.name,
+                    "bytes": m_bytes,
+                    "text": m_text,
+                    "method": m_method,
+                    "meta": m_meta,
+                    "lang_info": multilingual_engine_instance.identify_language(m_text),
+                    "faces_count": 0
+                }
+                st.session_state["active_doc"] = st.session_state["workspace_documents"][multi_file.name]
 
+        current_multi_doc_text = st.session_state.get("multi_doc_editor", "")
+        if current_multi_doc_text:
             st.markdown("##### ✏️ Extracted Regional Document Content (Editable)")
-            st.caption(f"Extraction Method: `{st.session_state.get('multi_doc_method', 'auto')}` | Review or modify the extracted text before sanitizing:")
+            st.caption("Review, edit, or modify the document content before sanitizing:")
             multi_doc_edited = st.text_area(
                 "Document Text:",
-                value=st.session_state.get("multi_doc_extracted_text", ""),
-                height=180,
-                key="multi_doc_editor"
+                key="multi_doc_editor",
+                height=180
             )
-            st.session_state["multi_doc_extracted_text"] = multi_doc_edited
 
             if st.button("🌐 Analyze & Sanitize Multilingual Document", type="primary", key="btn_sanitize_multi_doc"):
                 with st.spinner("Analyzing Indian language script, extracting regional entities, and tokenizing..."):
                     m_res = gateway_instance.process_multilingual_text(
-                        text=multi_doc_edited,
+                        text=st.session_state["multi_doc_editor"],
                         purpose=multi_doc_purpose
                     )
                     st.session_state["last_multi_doc_res"] = m_res
@@ -797,24 +884,27 @@ elif menu_selection == "🌐 Multilingual Processing":
                     sanitized_m_doc = m_res.get("panel_b", {}).get("sanitized_outbound_text", "")
                     st.text_area("Protected Payload", value=sanitized_m_doc, height=200, disabled=True, key="multi_doc_san_view")
 
+                    doc_name_dl = st.session_state.get("multi_doc_last_name", "document")
                     dl_m1, dl_m2 = st.columns(2)
                     with dl_m1:
                         st.download_button(
                             label="⬇️ Download Sanitized (.txt)",
                             data=sanitized_m_doc,
-                            file_name=f"sanitized_multilingual_{multi_file.name}.txt",
+                            file_name=f"sanitized_multilingual_{doc_name_dl}.txt",
                             mime="text/plain",
                             use_container_width=True
                         )
                     with dl_m2:
-                        pdf_bytes = generate_sanitized_pdf(sanitized_m_doc, title=f"Sanitized Multilingual Document - {multi_file.name}")
+                        pdf_bytes = generate_sanitized_pdf(sanitized_m_doc, title=f"Sanitized Multilingual Document - {doc_name_dl}")
                         st.download_button(
                             label="⬇️ Download Sanitized (.pdf)",
                             data=pdf_bytes,
-                            file_name=f"sanitized_multilingual_{multi_file.name}.pdf",
+                            file_name=f"sanitized_multilingual_{doc_name_dl}.pdf",
                             mime="application/pdf",
                             use_container_width=True
                         )
+        else:
+            st.info("Please upload a multilingual document above or select a workspace document.")
 
     with multi_tab2:
         lang_samples = {
@@ -858,7 +948,7 @@ elif menu_selection == "🌐 Multilingual Processing":
                 "पत्ता: एफसी रोड, शिवाजी नगर, पुणे - 411004"
             ),
             "Bengali (বাংলা)": (
-                "আবেদনকারীর নাম: সুনীতা বোস\n"
+                "আবেদনকারীর নাম: সুনীता বোস\n"
                 "আধার নম্বর: 7890 1234 5678\n"
                 "প্যান নম্বর: AAAPB1234K\n"
                 "ফোন: 9830067890\n"
@@ -874,12 +964,21 @@ elif menu_selection == "🌐 Multilingual Processing":
         }
 
         sel_lang = st.selectbox("Load Sample Regional Document:", list(lang_samples.keys()))
-        multi_input = st.text_area("Input Regional Text:", value=lang_samples[sel_lang], height=180, key="multi_text_area")
+        if "multi_sel_lang_prev" not in st.session_state or st.session_state.get("multi_sel_lang_prev") != sel_lang:
+            st.session_state["multi_sel_lang_prev"] = sel_lang
+            st.session_state["multi_text_editor"] = lang_samples[sel_lang]
+
+        multi_input = st.text_area(
+            "Input Regional Text:",
+            key="multi_text_editor",
+            height=180,
+            help="You can edit or erase any content. Edits are preserved when processing."
+        )
 
         if st.button("🌐 Analyze & Sanitize Multilingual Text", type="primary", key="btn_sanitize_multi_text"):
             with st.spinner("Analyzing language script and applying regional recognizers..."):
                 res = gateway_instance.process_multilingual_text(
-                    text=multi_input,
+                    text=st.session_state["multi_text_editor"],
                     purpose="loan_processing"
                 )
                 st.session_state["last_multi_text_res"] = res
@@ -934,15 +1033,27 @@ elif menu_selection == "👁️ Visual Privacy":
 
         process_vis_btn = st.button("👁️ Detect & Anonymize Faces", type="primary", use_container_width=True)
 
+    active_doc = st.session_state.get("active_doc")
+    img_bytes_source = None
+    img_name_source = "uploaded_image.png"
+
     if img_upload is not None:
-        raw_img_bytes = img_upload.read()
+        img_bytes_source = img_upload.read()
+        img_name_source = img_upload.name
+    elif active_doc is not None and active_doc["filename"].lower().endswith((".jpg", ".jpeg", ".png", ".bmp")):
+        img_bytes_source = active_doc["bytes"]
+        img_name_source = active_doc["filename"]
+        st.info(f"📂 Using Active Workspace Image: **{active_doc['filename']}** (Already loaded)")
+
+    if img_bytes_source is not None:
+        raw_img_bytes = img_bytes_source
 
         if process_vis_btn or "last_visual_result" in st.session_state:
             if process_vis_btn:
                 with st.spinner("Executing OpenCV YuNet face detection and anonymization..."):
                     vis_res = gateway_instance.process_image_visual(
                         image_bytes=raw_img_bytes,
-                        filename=img_upload.name,
+                        filename=img_name_source,
                         method=anon_method,
                         blur_factor=blur_val,
                         pixel_size=pix_val
@@ -974,7 +1085,7 @@ elif menu_selection == "👁️ Visual Privacy":
                     st.download_button(
                         label="⬇️ Download Protected Image",
                         data=prot_bytes,
-                        file_name=f"anonymized_{img_upload.name}.png",
+                        file_name=f"anonymized_{img_name_source}",
                         mime="image/png",
                         use_container_width=True
                     )
@@ -1087,106 +1198,160 @@ elif menu_selection == "📈 Detection Evaluation":
             )
 
     with ev_tab2:
-        st.markdown("##### Upload Custom Evaluation Dataset")
-        st.markdown("Upload a **JSON** or **CSV** file containing ground-truth annotated documents to calculate authentic precision, recall, and F1 metrics.")
+        st.markdown("##### ➕ Add Data & Evaluate Ground-Truth Records")
+        st.markdown("Add custom document records directly, upload a dataset (JSON/CSV), and run evaluation checks to measure real precision, recall, and F1 scores.")
 
+        if "custom_dataset_records" not in st.session_state:
+            st.session_state["custom_dataset_records"] = []
+
+        with st.expander("➕ Form: Add New Document to Dataset", expanded=True):
+            f_col1, f_col2, f_col3 = st.columns(3)
+            with f_col1:
+                new_doc_id = st.text_input("Document ID:", value=f"USER-DOC-{len(st.session_state['custom_dataset_records']) + 1:03d}", key="input_new_doc_id")
+            with f_col2:
+                new_doc_type = st.selectbox("Document Type:", ["Loan Application", "KYC Verification", "Insurance Claim", "Customer Support Ticket", "Employee Record", "Banking Statement", "General Document"], key="input_new_doc_type")
+            with f_col3:
+                new_doc_lang = st.selectbox("Document Language:", ["en", "kn", "hi", "ta", "te", "ml", "mr", "bn"], format_func=lambda x: {
+                    "en": "English", "kn": "Kannada", "hi": "Hindi", "ta": "Tamil",
+                    "te": "Telugu", "ml": "Malayalam", "mr": "Marathi", "bn": "Bengali"
+                }[x], key="input_new_doc_lang")
+
+            active_doc = st.session_state.get("active_doc")
+            default_add_text = active_doc["text"] if active_doc else (
+                "Customer Loan Onboarding:\n"
+                "Applicant: Priya Nair\n"
+                "Aadhaar Number: 6303 8523 6432\n"
+                "PAN Card: AAAPR9988K\n"
+                "Mobile: 9840134567\n"
+                "Address: Anna Salai, Chennai - 600002"
+            )
+            new_doc_text = st.text_area("Document Content / Original Text:", value=default_add_text, height=140, key="input_new_doc_text")
+
+            all_cat_options = ["PERSON", "AADHAAR", "PAN", "PHONE_NUMBER", "EMAIL_ADDRESS", "ADDRESS", "BANK_ACCOUNT", "GSTIN", "PASSPORT", "VOTER_ID"]
+            new_expected_cats = st.multiselect(
+                "Expected PII Categories in this Document:",
+                all_cat_options,
+                default=["PERSON", "AADHAAR", "PAN", "PHONE_NUMBER", "ADDRESS"],
+                key="input_new_expected_cats"
+            )
+
+            if st.button("➕ Add This Document to Dataset", key="btn_add_doc_record"):
+                if new_doc_text.strip():
+                    st.session_state["custom_dataset_records"].append({
+                        "doc_id": new_doc_id,
+                        "doc_type": new_doc_type,
+                        "language": new_doc_lang,
+                        "original_text": new_doc_text,
+                        "expected_entities": [{"category": c, "value": ""} for c in new_expected_cats]
+                    })
+                    st.success(f"✅ Added `{new_doc_id}` to active evaluation dataset! Total documents: {len(st.session_state['custom_dataset_records'])}")
+                else:
+                    st.warning("Please provide document content text.")
+
+        st.markdown("##### Or Upload Dataset File (.json, .csv):")
         uploaded_dataset_file = st.file_uploader(
-            "Choose a dataset file (.json, .csv):",
+            "Upload Dataset File:",
             type=["json", "csv"],
             key="custom_dataset_uploader"
         )
-
-        with st.expander("ℹ️ Supported Dataset Schema & Format Example"):
-            st.markdown("""
-            **JSON Format Example:**
-            ```json
-            [
-              {
-                "doc_id": "KYC-001",
-                "doc_type": "KYC Document",
-                "language": "en",
-                "original_text": "Applicant: Sunita Verma, Aadhaar: 8952 1816 1436, Phone: 9811023456",
-                "expected_entities": [
-                  {"category": "PERSON", "value": "Sunita Verma"},
-                  {"category": "AADHAAR", "value": "8952 1816 1436"},
-                  {"category": "PHONE_NUMBER", "value": "9811023456"}
-                ]
-              }
-            ]
-            ```
-            **CSV Format:** Columns `doc_id`, `doc_type`, `original_text`, `expected_entities` (as JSON array or comma-separated categories).
-            """)
-
         if uploaded_dataset_file is not None:
             dataset_bytes = uploaded_dataset_file.getvalue()
             parsed_records = dataset_evaluator_instance.parse_dataset_file(dataset_bytes, uploaded_dataset_file.name)
-            st.info(f"Loaded **{len(parsed_records)} documents** from `{uploaded_dataset_file.name}`.")
+            if parsed_records:
+                st.session_state["custom_dataset_records"].extend(parsed_records)
+                st.success(f"📥 Imported **{len(parsed_records)} documents** from `{uploaded_dataset_file.name}`. Total dataset size: {len(st.session_state['custom_dataset_records'])}")
 
-            if st.button("⚡ Run Evaluation on Uploaded Dataset", type="primary", key="btn_run_custom_eval"):
-                with st.spinner(f"Evaluating {len(parsed_records)} custom documents against PII detection engine..."):
-                    custom_report = dataset_evaluator_instance.run_evaluation(custom_docs=parsed_records)
-                    st.session_state["last_custom_eval_report"] = custom_report
+        st.markdown("---")
+        total_recs = len(st.session_state["custom_dataset_records"])
+        st.markdown(f"##### 📑 Active Evaluation Dataset: **{total_recs} Document(s)**")
 
-            if "last_custom_eval_report" in st.session_state:
-                c_rep = st.session_state["last_custom_eval_report"]
-                ce1, ce2, ce3, ce4, ce5 = st.columns(5)
-                with ce1:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <div class="metric-num">{c_rep.get('total_documents', 0)}</div>
-                        <div class="metric-label">Docs Evaluated</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                with ce2:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <div class="metric-num" style="color: #38BDF8;">{c_rep.get('precision_percentage', 0)}%</div>
-                        <div class="metric-label">Precision</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                with ce3:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <div class="metric-num" style="color: #818CF8;">{c_rep.get('recall_percentage', 0)}%</div>
-                        <div class="metric-label">Recall</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                with ce4:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <div class="metric-num" style="color: #34D399;">{c_rep.get('f1_score_percentage', 0)}%</div>
-                        <div class="metric-label">F1-Score</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                with ce5:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <div class="metric-num" style="color: #F87171;">{c_rep.get('missed_detections_count', 0)}</div>
-                        <div class="metric-label">Missed</div>
-                    </div>
-                    """, unsafe_allow_html=True)
+        if total_recs > 0:
+            df_recs = pd.DataFrame([{
+                "ID": r["doc_id"],
+                "Type": r["doc_type"],
+                "Language": r["language"],
+                "Snippet": (r["original_text"][:60] + "...") if len(r["original_text"]) > 60 else r["original_text"],
+                "Expected Entities": ", ".join(e["category"] for e in r["expected_entities"])
+            } for r in st.session_state["custom_dataset_records"]])
+            st.dataframe(df_recs, use_container_width=True, height=200)
 
-                st.markdown("---")
-                st.markdown("##### 📑 Custom Dataset Document Breakdown")
-                if c_rep.get("document_breakdown"):
-                    st.dataframe(pd.DataFrame(c_rep["document_breakdown"]), use_container_width=True)
+            c_btn1, c_btn2 = st.columns([3, 1])
+            with c_btn1:
+                run_custom_eval_btn = st.button("⚡ Evaluate Added Data (Check All Records)", type="primary", use_container_width=True, key="btn_run_custom_eval")
+            with c_btn2:
+                if st.button("🗑️ Clear Dataset Records", use_container_width=True, key="btn_clear_custom_records"):
+                    st.session_state["custom_dataset_records"] = []
+                    st.session_state.pop("last_custom_eval_report", None)
+                    st.rerun()
 
-                cd_col1, cd_col2 = st.columns(2)
-                with cd_col1:
-                    st.markdown("##### ❌ Missed Detections (False Negatives)")
-                    st.dataframe(pd.DataFrame(c_rep.get("missed_sample", [])), use_container_width=True)
-                with cd_col2:
-                    st.markdown("##### ⚠️ False Detections (False Positives)")
-                    st.dataframe(pd.DataFrame(c_rep.get("false_sample", [])), use_container_width=True)
+            if run_custom_eval_btn or "last_custom_eval_report" in st.session_state:
+                if run_custom_eval_btn:
+                    with st.spinner(f"Evaluating {total_recs} documents against PII detection engine..."):
+                        custom_report = dataset_evaluator_instance.run_evaluation(custom_docs=st.session_state["custom_dataset_records"])
+                        st.session_state["last_custom_eval_report"] = custom_report
 
-                st.download_button(
-                    label="⬇️ Download Custom Evaluation Report (JSON)",
-                    data=json.dumps(c_rep, indent=2),
-                    file_name=f"custom_eval_{uploaded_dataset_file.name}.json",
-                    mime="application/json",
-                    use_container_width=True,
-                    key="btn_dl_custom_eval"
-                )
+                c_rep = st.session_state.get("last_custom_eval_report", {})
+                if c_rep:
+                    ce1, ce2, ce3, ce4, ce5 = st.columns(5)
+                    with ce1:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-num">{c_rep.get('total_documents', 0)}</div>
+                            <div class="metric-label">Docs Evaluated</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    with ce2:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-num" style="color: #38BDF8;">{c_rep.get('precision_percentage', 0)}%</div>
+                            <div class="metric-label">Precision</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    with ce3:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-num" style="color: #818CF8;">{c_rep.get('recall_percentage', 0)}%</div>
+                            <div class="metric-label">Recall</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    with ce4:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-num" style="color: #34D399;">{c_rep.get('f1_score_percentage', 0)}%</div>
+                            <div class="metric-label">F1-Score</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    with ce5:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-num" style="color: #F87171;">{c_rep.get('missed_detections_count', 0)}</div>
+                            <div class="metric-label">Missed</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    st.markdown("---")
+                    st.markdown("##### 📑 Document-by-Document Accuracy Breakdown")
+                    if c_rep.get("document_breakdown"):
+                        st.dataframe(pd.DataFrame(c_rep["document_breakdown"]), use_container_width=True)
+
+                    cd_col1, cd_col2 = st.columns(2)
+                    with cd_col1:
+                        st.markdown("##### ❌ Missed Detections (False Negatives)")
+                        st.dataframe(pd.DataFrame(c_rep.get("missed_sample", [])), use_container_width=True)
+                    with cd_col2:
+                        st.markdown("##### ⚠️ False Detections (False Positives)")
+                        st.dataframe(pd.DataFrame(c_rep.get("false_sample", [])), use_container_width=True)
+
+                    st.download_button(
+                        label="⬇️ Download Evaluation Report (JSON)",
+                        data=json.dumps(c_rep, indent=2),
+                        file_name="custom_dataset_evaluation_report.json",
+                        mime="application/json",
+                        use_container_width=True,
+                        key="btn_dl_custom_eval"
+                    )
+        else:
+            st.info("No records in custom dataset yet. Add records above using the form or upload a JSON/CSV file.")
 
     with ev_tab3:
         st.markdown("##### Interactive Real-Time Document Input Evaluation")

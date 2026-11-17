@@ -17,6 +17,14 @@ class LeakageDetectedError(Exception):
         self.scan_stage = scan_stage
 
 
+INVALID_LEAK_WORDS = {
+    "email", "phone", "mobile", "address", "contact", "applicant", "customer",
+    "state", "city", "bank", "account", "number", "card", "name", "pan", "aadhaar",
+    "official", "primary", "residential", "disbursement", "applied", "request",
+    "date", "status", "id", "male", "female", "memo", "form", "ticket", "facility"
+}
+
+
 class LeakGuard:
     """
     Zero-Leakage Verification Guard.
@@ -50,6 +58,9 @@ class LeakGuard:
                 continue
 
             raw_clean = raw_val.strip()
+            if raw_clean.lower() in INVALID_LEAK_WORDS:
+                continue
+
             # Exact match check
             if raw_clean.lower() in outbound_lower:
                 leaked_items.append(f"Raw vault value detected: '{raw_clean}'")
